@@ -14,13 +14,15 @@ function Day (props) {
       return true;
     }
   };
+  
   return (
     <>
       <div
         className={cn(
           style.day,
           isCurrentMonth() ? '' : style.otherMonth,
-          isWeekEnd() && isCurrentMonth() ? style.weekend : ''
+          isWeekEnd() && isCurrentMonth() ? style.weekend : '',
+          currentDay.toLocaleDateString() === new Date().toLocaleDateString() ? style.currentDay : ''
         )}
       >
         {format(currentDay, 'dd')}
