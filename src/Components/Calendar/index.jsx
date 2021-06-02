@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import style from './Calendar.module.sass';
 import CalendarBody from './CalendarBody';
+import CurrentDay from './CurrentDay';
 
 function Calendar (props) {
+  const [currentDay, setCurrentDay] = useState(new Date());
   return (
     <>
       <div className={style.container}>
-        <CalendarBody />
+				<CurrentDay currentDay={currentDay} />
+        <CalendarBody currentDay={currentDay} setCurrentDay={setCurrentDay} />
       </div>
     </>
   );
