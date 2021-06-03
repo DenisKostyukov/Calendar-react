@@ -1,10 +1,12 @@
 import React from 'react';
 import style from './CurrentMonth.module.sass';
-
-function CurrentMonth ({ currentMonth }) {
+import { format } from 'date-fns';
+function CurrentMonth ({ currentMonth, selectedDay }) {
   return (
     <>
-      <h1 className={style.currentMonth}>{currentMonth}</h1>
+      <h1 className={style.currentMonth}>
+        {selectedDay ? format(selectedDay, 'MMMM y') : currentMonth}
+      </h1>
     </>
   );
 }

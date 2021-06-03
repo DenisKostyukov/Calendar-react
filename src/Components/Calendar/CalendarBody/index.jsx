@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { eachWeekOfInterval, lastDayOfMonth, format } from 'date-fns';
+import { eachWeekOfInterval, lastDayOfMonth, format, addMonths } from 'date-fns';
 import Week from './Week';
 import DayNames from './DayNames';
 import CurrenMonth from './CurrentMonth';
 import style from './CalendarBody.module.sass';
 
 function CalendarBody (props) {
-  const {currentDay, setCurrentDay} = props
-  const [currentMonth, setCurrentMonth] = useState(format(new Date(), 'MMMM y'));
+  const { currentDay, setSelectedDay, selectedDay } = props;
+  const [currentMonth, setCurrentMonth] = useState(
+    format(new Date(), 'MMMM y')
+  );
   const weeks = eachWeekOfInterval({
     start: currentDay,
     end: lastDayOfMonth(Date.now())
@@ -19,18 +21,29 @@ function CalendarBody (props) {
           <Week
             firstDayOfWeek={firstDayOfWeek}
             key={firstDayOfWeek.toLocaleDateString()}
+            selectedDay={selectedDay}
+            setSelectedDay={setSelectedDay}
           />
         );
       }
     });
   };
+  const resetDateHandler = () => setSelectedDay(false);
   return (
     <>
       <div className={style.container}>
-        <CurrenMonth currentMonth={currentMonth} />
+        <CurrenMonth currentMonth={currentMonth} selectedDay={selectedDay} />
         <DayNames />
         {getWeeks()}
+        {selectedDay && selectedDay.toLocaleDateString()!==currentDay.toLocaleDateString() ? (
+          <button onClick={resetDateHandler} className={style.resetDateBtn}>
+            {format(currentDay,'dd')}
+          </button>
+        ) : (
+          ''
+        )}
       </div>
+     
     </>
   );
 }
