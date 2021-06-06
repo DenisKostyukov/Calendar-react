@@ -5,7 +5,7 @@ import CurrentDay from './CurrentDay';
 
 function Calendar (props) {
   const [currentDay, setCurrentDay] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState(new Date());
+  //const [selectedDay, setSelectedDay] = useState(new Date());
 
   return (
     <>
@@ -13,13 +13,12 @@ function Calendar (props) {
         <CurrentDay
           currentDay={currentDay}
           setCurrentDay={setCurrentDay}
-          selectedDay={selectedDay}
+          
         />
         <CalendarBody
           currentDay={currentDay}
           setCurrentDay={setCurrentDay}
-          selectedDay={selectedDay}
-          setSelectedDay={setSelectedDay}
+          
         />
       </div>
     </>

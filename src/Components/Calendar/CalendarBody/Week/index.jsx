@@ -1,21 +1,19 @@
 import React from 'react';
-import { addDays, format } from 'date-fns';
+import { addDays} from 'date-fns';
 import Day from './Day';
 import style from './Week.module.sass';
 function Week (props) {
-  const { firstDayOfWeek, currentMonth, setSelectedDay, selectedDay } = props;
+  const { firstDayOfWeek, currentMonth,currentDay,setCurrentDay} = props;
   const getDays = () => {
     return new Array(7).fill(null).map((_, index) => {
-      const currentDay = addDays(firstDayOfWeek, index);
-      console.log(currentDay)
+      const currDay = addDays(firstDayOfWeek, index);
       return (
         <Day
-          currentDay={currentDay}
+          currDay={currDay}
           currentMonth={currentMonth}
-          key={currentDay.toLocaleDateString()}
-          id={currentDay.toLocaleDateString()}
-          selectedDay={selectedDay}
-          setSelectedDay={setSelectedDay}
+          key={currDay.toLocaleDateString()}
+          currentDay={currentDay}
+          setCurrentDay={setCurrentDay}
         />
       );
     });

@@ -3,27 +3,30 @@ import { format, isWeekend, isToday } from 'date-fns';
 import cn from 'classnames';
 import style from './Day.module.sass';
 function Day (props) {
-  const { currentDay, currentMonth, id, setSelectedDay, selectedDay } = props;
+  const { currDay, currentDay, setCurrentDay } = props;
   const isCurrentMonth = () =>
-    format(currentDay, 'M') !== format(currentMonth, 'M');
-
-  const isWeekEnd = () => isWeekend(currentDay);
+    format(currDay, 'M') !== format(currentDay, 'M');
+  const isWeekEnd = () => isWeekend(currDay);
   return (
     <>
       <div
-        id={id}
-        onClick={() => setSelectedDay(currentDay)}
+        onClick={() => {
+          setCurrentDay(currDay);
+        }}
         className={cn(
           style.day,
           isCurrentMonth() ? style.otherMonth : '',
           isWeekEnd() && !isCurrentMonth() ? style.weekend : '',
-          selectedDay && selectedDay.toLocaleDateString() === id
+          currentDay.toLocaleDateString() === currDay.toLocaleDateString()
             ? style.currentDay
             : '',
-          !selectedDay && isToday(currentDay) ? style.currentDay : ''
+          currentDay.toLocaleDateString() === currDay.toLocaleDateString() &&
+            isToday(currDay)
+            ? style.currentDay
+            : ''
         )}
       >
-        {format(currentDay, 'dd')}
+        {format(currDay, 'dd')}
       </div>
     </>
   );

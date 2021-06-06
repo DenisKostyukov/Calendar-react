@@ -13,38 +13,36 @@ import style from './CalendarBody.module.sass';
 import CalendarHeader from './CalendarHeader';
 
 function CalendarBody (props) {
-  const { currentDay,setCurrentDay, setSelectedDay, selectedDay } = props;
+  const { currentDay, setCurrentDay } = props;
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  console.log(currentMonth);
+
   const weeks = eachWeekOfInterval({
     start: startOfMonth(currentMonth),
     end: lastDayOfMonth(currentMonth)
   });
   const getWeeks = () => {
     return weeks.map(firstDayOfWeek => {
-      {
-        return (
-          <Week
-            firstDayOfWeek={firstDayOfWeek}
-            key={firstDayOfWeek.toLocaleDateString()}
-            selectedDay={selectedDay}
-            setSelectedDay={setSelectedDay}
-            currentMonth={currentMonth}
-          />
-        );
-      }
+      return (
+        <Week
+          firstDayOfWeek={firstDayOfWeek}
+          key={firstDayOfWeek.toLocaleDateString()}
+          currentMonth={currentMonth}
+          currentDay={currentDay}
+          setCurrentDay={setCurrentDay}
+        />
+      );
     });
   };
   const addMonthHandler = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
-    setSelectedDay(addMonths(selectedDay,1));
+    setCurrentDay(addMonths(currentDay, 1));
   };
   const subMonthHandler = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
-    setSelectedDay(subMonths(selectedDay,1))
+    setCurrentDay(subMonths(currentDay, 1));
   };
   const resetDateHandler = () => {
-    setSelectedDay(new Date());
+    setCurrentDay(new Date());
     setCurrentMonth(new Date());
   };
   return (
@@ -54,13 +52,12 @@ function CalendarBody (props) {
           addMonthHandler={addMonthHandler}
           subMonthHandler={subMonthHandler}
           currentMonth={currentMonth}
-          selectedDay={selectedDay}
         />
         <DayNames />
         {getWeeks()}
-        {selectedDay.toLocaleDateString() !== currentDay.toLocaleDateString() ? (
+        {new Date().toLocaleDateString() !== currentDay.toLocaleDateString() ? (
           <button onClick={resetDateHandler} className={style.resetDateBtn}>
-            {format(currentDay, 'dd')}
+            {format(new Date(), 'dd')}
           </button>
         ) : (
           ''
