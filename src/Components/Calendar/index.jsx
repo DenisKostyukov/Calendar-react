@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import style from './Calendar.module.sass';
 import CalendarBody from './CalendarBody';
 import CurrentDay from './CurrentDay';
-import { addMonths } from 'date-fns';
 
 function Calendar (props) {
   const [currentDay, setCurrentDay] = useState(new Date());

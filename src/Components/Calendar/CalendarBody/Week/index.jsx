@@ -7,6 +7,7 @@ function Week (props) {
   const getDays = () => {
     return new Array(7).fill(null).map((_, index) => {
       const currentDay = addDays(firstDayOfWeek, index);
+      console.log(currentDay)
       return (
         <Day
           currentDay={currentDay}
