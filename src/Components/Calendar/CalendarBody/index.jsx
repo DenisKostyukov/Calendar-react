@@ -5,12 +5,12 @@ import {
   format,
   startOfMonth,
   addMonths,
-  subMonths,
+  subMonths
 } from 'date-fns';
 import Week from './Week';
 import DayNames from './DayNames';
-import CurrenMonth from './CurrentMonth';
 import style from './CalendarBody.module.sass';
+import CalendarHeader from './CalendarHeader';
 
 function CalendarBody (props) {
   const { currentDay, setSelectedDay, selectedDay } = props;
@@ -35,23 +35,25 @@ function CalendarBody (props) {
       }
     });
   };
-  const addMonthHandler= () =>{
-    setCurrentMonth(addMonths(currentMonth,1))
-  }
-  const subMonthHandler = () =>{
-    setCurrentMonth(subMonths(currentMonth,1))
-  }
+  const addMonthHandler = () => {
+    setCurrentMonth(addMonths(currentMonth, 1));
+  };
+  const subMonthHandler = () => {
+    setCurrentMonth(subMonths(currentMonth, 1));
+  };
   const resetDateHandler = () => setSelectedDay(false);
   return (
     <>
       <div className={style.container}>
-        <CurrenMonth
-          currentMonth={format(currentMonth, 'MMMM y')}
+        <CalendarHeader
+          addMonthHandler={addMonthHandler}
+          subMonthHandler={subMonthHandler}
+          currentMonth={currentMonth}
           selectedDay={selectedDay}
         />
         <DayNames />
         {getWeeks()}
-        {selectedDay && selectedDay!== currentDay.toLocaleDateString() ? (
+        {selectedDay && selectedDay !== currentDay.toLocaleDateString() ? (
           <button onClick={resetDateHandler} className={style.resetDateBtn}>
             {format(currentDay, 'dd')}
           </button>
