@@ -7,7 +7,7 @@ import { faArrowCircleLeft, faArrowCircleRight } from '@fortawesome/free-solid-s
 import style from './CalendarHeader.module.sass';
 
 function CalendarHeader (props) {
-  const { subMonthHandler, addMonthHandler, currentMonth, selectedDay } = props;
+  const { subMonthHandler, addMonthHandler, currentDay, selectedDay } = props;
   return (
     <>
       <div className={style.container}>
@@ -16,8 +16,7 @@ function CalendarHeader (props) {
         </Button>
         
         <CurrenMonth
-          currentMonth={format(currentMonth, 'MMMM y')}
-          selectedDay={selectedDay}
+          currentDay={format(currentDay, 'MMMM y')}
         />
         <Button onClick={addMonthHandler} className={style.btn}>
         <FontAwesomeIcon icon={faArrowCircleRight} />

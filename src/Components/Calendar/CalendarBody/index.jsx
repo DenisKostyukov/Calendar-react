@@ -14,11 +14,10 @@ import CalendarHeader from './CalendarHeader';
 
 function CalendarBody (props) {
   const { currentDay, setCurrentDay } = props;
-  const [currentMonth, setCurrentMonth] = useState(new Date());
 
   const weeks = eachWeekOfInterval({
-    start: startOfMonth(currentMonth),
-    end: lastDayOfMonth(currentMonth)
+    start: startOfMonth(currentDay),
+    end: lastDayOfMonth(currentDay)
   });
   const getWeeks = () => {
     return weeks.map(firstDayOfWeek => {
@@ -26,7 +25,6 @@ function CalendarBody (props) {
         <Week
           firstDayOfWeek={firstDayOfWeek}
           key={firstDayOfWeek.toLocaleDateString()}
-          currentMonth={currentMonth}
           currentDay={currentDay}
           setCurrentDay={setCurrentDay}
         />
@@ -34,16 +32,13 @@ function CalendarBody (props) {
     });
   };
   const addMonthHandler = () => {
-    setCurrentMonth(addMonths(currentMonth, 1));
     setCurrentDay(addMonths(currentDay, 1));
   };
   const subMonthHandler = () => {
-    setCurrentMonth(subMonths(currentMonth, 1));
     setCurrentDay(subMonths(currentDay, 1));
   };
   const resetDateHandler = () => {
     setCurrentDay(new Date());
-    setCurrentMonth(new Date());
   };
   return (
     <>
@@ -51,7 +46,7 @@ function CalendarBody (props) {
         <CalendarHeader
           addMonthHandler={addMonthHandler}
           subMonthHandler={subMonthHandler}
-          currentMonth={currentMonth}
+          currentDay={currentDay}
         />
         <DayNames />
         {getWeeks()}
