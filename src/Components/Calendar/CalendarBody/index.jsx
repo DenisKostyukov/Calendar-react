@@ -13,7 +13,7 @@ import style from './CalendarBody.module.sass';
 import CalendarHeader from './CalendarHeader';
 
 function CalendarBody (props) {
-  const { currentDay, setSelectedDay, selectedDay } = props;
+  const { currentDay,setCurrentDay, setSelectedDay, selectedDay } = props;
   const [currentMonth, setCurrentMonth] = useState(new Date());
   console.log(currentMonth);
   const weeks = eachWeekOfInterval({
@@ -37,11 +37,16 @@ function CalendarBody (props) {
   };
   const addMonthHandler = () => {
     setCurrentMonth(addMonths(currentMonth, 1));
+    setSelectedDay(addMonths(selectedDay,1));
   };
   const subMonthHandler = () => {
     setCurrentMonth(subMonths(currentMonth, 1));
+    setSelectedDay(subMonths(selectedDay,1))
   };
-  const resetDateHandler = () => setSelectedDay(false);
+  const resetDateHandler = () => {
+    setSelectedDay(new Date());
+    setCurrentMonth(new Date());
+  };
   return (
     <>
       <div className={style.container}>
@@ -53,7 +58,7 @@ function CalendarBody (props) {
         />
         <DayNames />
         {getWeeks()}
-        {selectedDay && selectedDay !== currentDay.toLocaleDateString() ? (
+        {selectedDay.toLocaleDateString() !== currentDay.toLocaleDateString() ? (
           <button onClick={resetDateHandler} className={style.resetDateBtn}>
             {format(currentDay, 'dd')}
           </button>

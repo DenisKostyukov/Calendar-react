@@ -6,7 +6,7 @@ import { addMonths } from 'date-fns';
 
 function Calendar (props) {
   const [currentDay, setCurrentDay] = useState(new Date());
-  const [selectedDay, setSelectedDay] = useState(false);
+  const [selectedDay, setSelectedDay] = useState(new Date());
 
   return (
     <>
