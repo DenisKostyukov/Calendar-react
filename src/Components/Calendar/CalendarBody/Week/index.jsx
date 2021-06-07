@@ -11,7 +11,7 @@ function Week (props) {
         <Day
           dayOfMonth={dayOfMonth}
           currentMonth={currentMonth}
-          key={currDay.toLocaleDateString()}
+          key={dayOfMonth.toLocaleDateString()}
           currentDay={currentDay}
           setCurrentDay={setCurrentDay}
         />
